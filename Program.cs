@@ -75,11 +75,11 @@ builder.Services.AddDbContext<ToDoDbContext>();
 var app = builder.Build();
 app.UseCors("OpenPolicy");
 
-if (app.Environment.IsDevelopment())
-{
+// if (app.Environment.IsDevelopment())
+// {
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+//}
 
 
 
@@ -205,7 +205,7 @@ app.MapPut("/items/{id}", [Authorize] async (ToDoDbContext db, int id, TodoModel
 
 });
 
-
+app.MapGet("/",()=>"hllo");
 object CreateJWT(User user)
 {
     var claims = new List<Claim>()
@@ -226,6 +226,7 @@ object CreateJWT(User user)
     var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
     return new { Token = tokenString };
 }
+
 
 
 app.Run();
