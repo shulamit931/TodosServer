@@ -155,7 +155,7 @@ app.MapPost("/items", [Authorize] async (ToDoDbContext db, TodoModel todo, HttpC
     int.TryParse(context.User.Claims.FirstOrDefault(c => c.Type == "id")?.Value, out int userId);
     if (await db.Users.FindAsync(userId) is User user)
     {
-        db.Items.Add(new Item() { Name = todo.Name, IsCompleted = todo.IsCompleted, UserId = user.Id });
+        db.Items.Add(new Item() { Name = todo.Name, IsCompleted = false, UserId = user.Id });
         await db.SaveChangesAsync();
         return Results.Created("/", todo);
 
